@@ -18,10 +18,10 @@ bool compdist(const vector<float>& v1, const vector<float>& v2){
 }
 
 void KNNClassifier(vector< vector<float> > tab, vector<float> target){
-	ifstream ifile;
+	ifstream ifile;               //read the test file
 	ifile.open("test4.csv");
 
-	ofstream ofile;
+	ofstream ofile;               //ouput file
 	ofile.open("15EC10044_4.out");
 
 	if(!ifile.is_open()){
@@ -34,20 +34,17 @@ void KNNClassifier(vector< vector<float> > tab, vector<float> target){
     string tabtest[rows][columns];
     int x;
 
-	for(i=0; i<rows; i++){
+	for(i=0; i<rows; i++){           //read the test file onto a 2d vector
 		vector<float> dummytest;
 		for(j=0; j<columns-1; j++){
 			getline(ifile, tabtest[i][j],',');
 			stringstream s(tabtest[i][j]);
 			s>>x;
 			dummytest.push_back(x);
-			//cout<<x;
 		}
 		ifile>>x;
 		dummytest.push_back(x);
-		//cout<<x;
         tabvtest.push_back(dummytest);
-		//cout<<"\n";
 	}
 
 	
@@ -56,53 +53,38 @@ void KNNClassifier(vector< vector<float> > tab, vector<float> target){
 	int testrows=4, testcolumns=8, trainrows=20, traincolumns=8;
 	int count;
 
-	for(i=0;i<testrows;i++){
+	for(i=0;i<testrows;i++){                  //read each row of the test file
         vector< vector<float> > kdistance;
         distance=0,count=0;
 		
-        for(j=0;j<trainrows;j++){
+        for(j=0;j<trainrows;j++){             //compute distances
              
              vector<float> dummy;
              for(k=0;k<traincolumns;k++)
              	distance+= ((tabvtest[i][k]-tab[j][k]) * (tabvtest[i][k]-tab[j][k]));
-             
-             //cout<<sqrt(distance)<<"\n";
-
              dummy.push_back(j);
              dummy.push_back(sqrt(distance));
-             //cout<<dummy[1]<<"\n";
-
              kdistance.push_back(dummy);
              }
+            
+             sort(kdistance.begin(), kdistance.end(), compdist);  //sort the distances
              
-            // cout<<kdistance[j][0]<<"\t"<<kdistance[j][1]<<"\n";
-
-            // for(j=0;j<trainrows;j++)
-              // cout<<kdistance[j][0]<<"\t"<<kdistance[j][1]<<"\n";
-             //cout<<"sorted\n";
-             sort(kdistance.begin(), kdistance.end(), compdist);
-             //for(j=0;j<trainrows;j++)
-               //cout<<kdistance[j][0]<<"\t"<<kdistance[j][1]<<"\n";
-             
-             for(k=0;k<5;k++){
+             for(k=0;k<5;k++){                       //choose majority of the nearest 5 neighbours
              	if(target[(int)kdistance[k][0]])
              		count++;
              }
-             //cout<<count<<"\n";
-             
-
-             if(count>=3){
+            
+             if(count>=3)  {        //write to the output file
              	ofile<<1<<"\t";
-             	//cout<<1<<"\t";
+             	//cout<<1;
              }
+             	
              else{
+             //	cout<<0;
              	ofile<<0<<"\t";
-             	//cout<<0<<"\t";
              }
-
-        
-
-	}
+             	
+    }
 
     ifile.close();
 	ofile.close();
@@ -113,7 +95,7 @@ void KNNClassifier(vector< vector<float> > tab, vector<float> target){
 
 main(){
 	ifstream ifile;
-	ifile.open("data4.csv");
+	ifile.open("data4.csv"); //read the input file
 
 	if(!ifile.is_open()){
 		cout<<"File couldn't be read!";
@@ -128,14 +110,13 @@ main(){
 
     int x,y,k;
 
-	for(i=0; i<rows; i++){
+	for(i=0; i<rows; i++){        //read the input file onto a string array and then convert to a float 2d vector
 		vector<float> dummy;
 		for(j=0; j<columns; j++){
 			getline(ifile, tab[i][j],',');
 			stringstream s(tab[i][j]);
 			s>>x;
 			dummy.push_back(x);
-		//cout<<x;
 		
 		}
         tabv.push_back(dummy);
@@ -144,11 +125,10 @@ main(){
 		stringstream d(target[i]);
 		d>>y;
 		targetv.push_back(y);
-		//cout<<y<<"\n";
 		
 	}
 
-	KNNClassifier(tabv, targetv);
+	KNNClassifier(tabv, targetv);  //call the knn function
 
-	ifile.close();
+	ifile.close();  //close the file
 }
