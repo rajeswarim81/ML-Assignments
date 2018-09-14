@@ -3,7 +3,7 @@
 # Roll : 15EC10044
 # Name : Rajeswari Mahapatra
 # Assignment No : 4
-# Run instructions : g++ 15EC10044_4.cpp -lm && ./a.out
+# Run instructions : g++ 15EC10044_4.cpp && ./a.out
 
 ********/
 
@@ -19,7 +19,7 @@ bool compdist(const vector<float>& v1, const vector<float>& v2){
 
 void KNNClassifier(vector< vector<float> > tab, vector<float> target){
 	ifstream ifile;               //read the test file
-	ifile.open("test.csv");
+	ifile.open("test4.csv");
 
 	ofstream ofile;               //ouput file
 	ofile.open("15EC10044_4.out");
@@ -89,7 +89,7 @@ void KNNClassifier(vector< vector<float> > tab, vector<float> target){
              }
              	
              else{
-               // cout<<0;
+               //cout<<0;
              	ofile<<0<<"\t";
              }
              	
@@ -104,7 +104,7 @@ void KNNClassifier(vector< vector<float> > tab, vector<float> target){
 
 main(){
 	ifstream ifile;
-	ifile.open("train.csv"); //read the input file
+	ifile.open("data4.csv"); //read the input file
 
 	if(!ifile.is_open()){
 		cout<<"File couldn't be read!";
