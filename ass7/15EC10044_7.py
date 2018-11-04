@@ -80,7 +80,7 @@ filename = open('15EC10044_7.out','w')
 
 #add 1 to memebership values, to classify them as class 1 and 2
 for i in range(membership.shape[0]):
-	filename.write(str((membership[i])+1)+" ")
+	filename.write(str(((int)(membership[i]))+1)+" ")
 
 filename.close()
 

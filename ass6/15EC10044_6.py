@@ -108,7 +108,7 @@ while k:
       count+=1
 
   d=((count/train_data.shape[0])*100)
-  #print d
+  print d
 
   #if(d==100.0):
   break
