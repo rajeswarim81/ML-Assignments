@@ -32,6 +32,9 @@ columns=x.shape[1]
 cmean1=x[np.random.randint(low=0, high=rows),:]
 cmean2=x[np.random.randint(low=0, high=rows),:]
 
+#cmean1=x[2,:]
+#cmean2=x[4,:]
+
 #cmean1=x[0,:]
 #cmean2=x[1,:]
 
@@ -51,7 +54,7 @@ for i in range(epoch):
     for j in range(rows):
     	d1=euclideanDistance(cmean1,x[j])        #calculate distances
     	d2=euclideanDistance(cmean2,x[j])
-    	membership[j]=1*(d1 >= d2)               #deciding memberships
+    	membership[j]=1*(d1 > d2)               #deciding memberships
     
     count=0
     sum1=np.zeros(columns)                       #recalculating cluster centers
@@ -75,7 +78,7 @@ for i in range(epoch):
     cmean1=sum1                  
     cmean2=sum2
 
-#print(membership)
+print(membership)
 filename = open('15EC10044_7.out','w')
 
 #add 1 to memebership values, to classify them as class 1 and 2
